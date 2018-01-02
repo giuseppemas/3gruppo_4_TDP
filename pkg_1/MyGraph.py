@@ -15,17 +15,14 @@ class MyGraph (Graph):
         E = set()
         for e in self.edges():
             E.add(e)
-        while E != 0:
+        while len(E) != 0:
             e = E.pop()
             u, v = e.endpoints()                    #assegno ad u e v i due estremi dell'arco
             vertexCover[u] = {}
             vertexCover[v] = {}
-            for elem in vertexCover:
-                print(elem, end="\n")
-            '''for elem in self.incident_edges(u):
-                E.remove(elem)
-            for edge in self.incident_edges(v):
-                E.remove(edge)'''
+            for e in E.copy():                      #se in E sono presenti archi incidenti di u o di v
+                if e._origin == u or e._origin == v or e._destination == u or e._destination == v:
+                    E.remove(e)                     #li rimuove
         return vertexCover
 
 
@@ -59,7 +56,6 @@ for e in graph1.edges():
     print (e, end="\n")
 print("]\n\n")
 
-for v in graph1.incident_edges(vertex1):
-    print(v, end=", ")
-
-graph1.greedy_vertex_cover()
+listGVC = graph1.greedy_vertex_cover()
+for elem in listGVC:
+    print(elem, end=", ")
