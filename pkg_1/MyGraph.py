@@ -22,24 +22,11 @@ class MyGraph (Graph):
             vertexCover[v] = {}
             for elem in vertexCover:
                 print(elem, end="\n")
-            self.remove_incident_edges(u)
-            self.remove_incident_edges(v)
+            '''for elem in self.incident_edges(u):
+                E.remove(elem)
+            for edge in self.incident_edges(v):
+                E.remove(edge)'''
         return vertexCover
-
-
-    def remove_edges(self, e):
-        w,z = e.endpoints()
-        self._validate_vertex(w)
-        self._validate_vertex(z)
-        del self._outgoing[w][z]
-        del self._incoming[z][w]
-
-
-    def remove_incident_edges(self, u):
-        incident = self.degree(u)
-        while incident != 0:
-            self.remove_edges(edge)
-
 
 
 graph1 = MyGraph()
