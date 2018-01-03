@@ -46,3 +46,16 @@ print("Vertici: [")
 for v in graph2.vertices():
     print(v, end=", ")
 print("]\n\n")
+
+in_file = open("zachary_club.txt","r")              #lettura da file
+testo = in_file.read()
+in_file.close()
+lettura = testo.splitlines()
+lettura = list(lettura)
+for i in range[2, len(lettura) + 1]:
+    endpoints = lettura[i].split(" ")               #inserisce i 2 estremi in un array di 2 elementi
+    graph2.insert_edge(endpoints[0],endpoints[1])
+print("Archi: [")
+for v in graph2.vertices():
+    print(v, end=", ")
+print("]\n\n")
