@@ -68,3 +68,8 @@ print("Archi: [")
 for e in graph2.edges():
     print(e, end=", ")
 print("]\n\n")
+
+listGVC2 = graph2.greedy_vertex_cover()
+for elem in listGVC2:
+    print(elem, end=", ")
+print("\n\n\n")
