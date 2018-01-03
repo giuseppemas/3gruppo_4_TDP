@@ -40,8 +40,9 @@ print("\n\n\n")
 
 print("SECONDO ESEMPIO: Grafo non diretto non pesato con 34 vertici e 78 archi")
 graph2 = MyGraph()
+vert = []
 for i in range (1,35):
-    graph2.insert_vertex(i)
+    vert.append(graph2.insert_vertex(i))
 print("Vertici: [")
 for v in graph2.vertices():
     print(v, end=", ")
@@ -52,10 +53,18 @@ testo = in_file.read()
 in_file.close()
 lettura = testo.splitlines()
 lettura = list(lettura)
-for i in range[2, len(lettura) + 1]:
+lenLettura = len(lettura)
+while i < lenLettura:
     endpoints = lettura[i].split(" ")               #inserisce i 2 estremi in un array di 2 elementi
-    graph2.insert_edge(endpoints[0],endpoints[1])
+    j = 0
+    while vert[j]._element != int(endpoints[0]):
+        j = j+1
+    z = 0
+    while vert[z]._element != int(endpoints[1]):
+        z = z + 1
+    graph2.insert_edge(vert[j],vert[z])
+    i = i+1
 print("Archi: [")
-for v in graph2.vertices():
-    print(v, end=", ")
+for e in graph2.edges():
+    print(e, end=", ")
 print("]\n\n")
