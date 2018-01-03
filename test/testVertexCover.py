@@ -38,7 +38,7 @@ for elem in listGVC:
     print(elem, end=", ")
 print("\n\n")
 print("Min vertex cover: ")
-listMVC = graph1.min_vertex_cover()
+listMVC = graph1.min_vertex_cover
 for elem in listMVC:
     print(elem, end=", ")
 print("\n\n\n")
@@ -82,7 +82,7 @@ for elem in listGVC2:
     print(elem, end=", ")
 print("\n\n")
 print("Min vertex cover: ")
-listMVC2 = graph2.min_vertex_cover()
+listMVC2 = graph2.min_vertex_cover
 for elem in listMVC2:
     print(elem, end=", ")
 print("\n\n\n")
@@ -135,7 +135,7 @@ for elem in listGVC3:
     print(elem, end=", ")
 print("\n\n")
 print("Min vertex cover: ")
-listMVC3 = graph3.min_vertex_cover()
+listMVC3 = graph3.min_vertex_cover
 for elem in listMVC3:
     print(elem, end=", ")
 print("\n\n\n")
