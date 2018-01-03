@@ -54,6 +54,7 @@ in_file.close()
 lettura = testo.splitlines()
 lettura = list(lettura)
 lenLettura = len(lettura)
+i = 2
 while i < lenLettura:
     endpoints = lettura[i].split(" ")               #inserisce i 2 estremi in un array di 2 elementi
     j = 0
