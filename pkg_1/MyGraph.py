@@ -7,7 +7,29 @@ class MyGraph (Graph):
 
 
     def min_vertex_cover(self):
-        pass
+        vertexCover = {}
+        E = set()
+        for e in self.edges():
+            E.add(e)
+        while len(E) != 0:
+            e = E.pop()                         #l'arco viene già eliminato
+            u, v = e.endpoints()
+            print (u, v)
+            deg_u = self.degree(u)
+            deg_v = self.degree(v)
+            print ("deg_u: ", deg_u, ", deg_v", deg_v)
+            if (deg_u > 1 and deg_u > deg_v) or deg_v == 1:
+                vertexCover[u] = {}             #u copre almeno due archi quindi lo inserisce nella soluzione
+                for e in E.copy():
+                    if e._origin == u or e._destination == u:
+                        print (e)
+                        E.remove(e)
+            else:                               #v copre almeno due archi
+                vertexCover[v] = {}             #lo inserisce nella soluzione
+                for e in E.copy():
+                    if e._origin == v or e._destination == v:
+                        E.remove(e)
+        return vertexCover
 
 
     def greedy_vertex_cover(self):

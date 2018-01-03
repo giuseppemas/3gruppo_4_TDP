@@ -32,8 +32,14 @@ for e in graph1.edges():
     print (e, end="\n")
 print("]\n\n")
 
+print("Greedy vertex cover: ")
 listGVC = graph1.greedy_vertex_cover()
 for elem in listGVC:
+    print(elem, end=", ")
+print("\n\n")
+print("Min vertex cover: ")
+listMVC = graph1.min_vertex_cover()
+for elem in listMVC:
     print(elem, end=", ")
 print("\n\n\n")
 
@@ -70,7 +76,66 @@ for e in graph2.edges():
     print(e, end=", ")
 print("]\n\n")
 
+print("Greedy vertex cover: ")
 listGVC2 = graph2.greedy_vertex_cover()
 for elem in listGVC2:
+    print(elem, end=", ")
+print("\n\n")
+print("Min vertex cover: ")
+listMVC2 = graph2.min_vertex_cover()
+for elem in listMVC2:
+    print(elem, end=", ")
+print("\n\n\n")
+
+print("TERZO ESEMPIO: Grafo non diretto non pesato con 12 vertici e 17 archi")
+graph3 = MyGraph()
+vertex1 = graph3.insert_vertex(1)
+vertex2 = graph3.insert_vertex(2)
+vertex3 = graph3.insert_vertex(3)
+vertex4 = graph3.insert_vertex(4)
+vertex5 = graph3.insert_vertex(5)
+vertex6 = graph3.insert_vertex(6)
+vertex7 = graph3.insert_vertex(7)
+vertex8 = graph3.insert_vertex(8)
+vertex9 = graph3.insert_vertex(9)
+vertex10 = graph3.insert_vertex(10)
+vertex11 = graph3.insert_vertex(11)
+vertex12 = graph3.insert_vertex(12)
+print("VERTICI: [")
+for v in graph1.vertices():
+    print(v, end=", ")
+print("\n]\n\n")
+
+graph3.insert_edge(vertex1, vertex2)
+graph3.insert_edge(vertex2, vertex3)
+graph3.insert_edge(vertex3, vertex4)
+graph3.insert_edge(vertex4, vertex5)
+graph3.insert_edge(vertex5, vertex6)
+graph3.insert_edge(vertex6, vertex7)
+graph3.insert_edge(vertex7, vertex1)
+graph3.insert_edge(vertex7, vertex8)
+graph3.insert_edge(vertex8, vertex12)
+graph3.insert_edge(vertex12, vertex9)
+graph3.insert_edge(vertex9, vertex5)
+graph3.insert_edge(vertex9, vertex4)
+graph3.insert_edge(vertex12, vertex10)
+graph3.insert_edge(vertex10, vertex11)
+graph3.insert_edge(vertex10, vertex3)
+graph3.insert_edge(vertex11, vertex2)
+graph3.insert_edge(vertex6, vertex8)
+
+print("ARCHI: [")
+for e in graph3.edges():
+    print (e, end="\n")
+print("]\n\n")
+
+print("Greedy vertex cover: ")
+listGVC3 = graph3.greedy_vertex_cover()
+for elem in listGVC3:
+    print(elem, end=", ")
+print("\n\n")
+print("Min vertex cover: ")
+listMVC3 = graph3.min_vertex_cover()
+for elem in listMVC3:
     print(elem, end=", ")
 print("\n\n\n")
