@@ -38,7 +38,7 @@ for elem in listGVC:
     print(elem, end=", ")
 print("\n\n")
 print("Min vertex cover: ")
-listMVC = graph1.min_vertex_cover
+listMVC = graph1.min_vertex_cover()
 for elem in listMVC:
     print(elem, end=", ")
 print("\n\n\n")
@@ -82,7 +82,7 @@ for elem in listGVC2:
     print(elem, end=", ")
 print("\n\n")
 print("Min vertex cover: ")
-listMVC2 = graph2.min_vertex_cover
+listMVC2 = graph2.min_vertex_cover()
 for elem in listMVC2:
     print(elem, end=", ")
 print("\n\n\n")
@@ -102,7 +102,7 @@ vertex10 = graph3.insert_vertex(10)
 vertex11 = graph3.insert_vertex(11)
 vertex12 = graph3.insert_vertex(12)
 print("VERTICI: [")
-for v in graph1.vertices():
+for v in graph3.vertices():
     print(v, end=", ")
 print("\n]\n\n")
 
@@ -117,7 +117,7 @@ graph3.insert_edge(vertex7, vertex8)
 graph3.insert_edge(vertex8, vertex12)
 graph3.insert_edge(vertex12, vertex9)
 graph3.insert_edge(vertex9, vertex5)
-graph3.insert_edge(vertex9, vertex4)
+graph3.insert_edge(vertex4, vertex9)
 graph3.insert_edge(vertex12, vertex10)
 graph3.insert_edge(vertex10, vertex11)
 graph3.insert_edge(vertex10, vertex3)
@@ -135,7 +135,54 @@ for elem in listGVC3:
     print(elem, end=", ")
 print("\n\n")
 print("Min vertex cover: ")
-listMVC3 = graph3.min_vertex_cover
+listMVC3 = graph3.min_vertex_cover()
 for elem in listMVC3:
+    print(elem, end=", ")
+print("\n\n\n")
+
+
+print("QUARTO ESEMPIO: Grafo non diretto non pesato con 15 vertici e 32 archi")
+graph4 = MyGraph()
+vert = []
+for i in range (1,16):
+    vert.append(graph4.insert_vertex(i))
+print("Vertici: [")
+for v in graph4.vertices():
+    print(v, end=", ")
+print("]\n\n")
+
+in_file = open("test1.txt","r")              #lettura da file
+testo2 = in_file.read()
+in_file.close()
+lettura2 = testo2.splitlines()
+lettura2 = list(lettura)
+lenLettura2 = len(lettura)
+i = 2
+while i < lenLettura2:
+    endpoints = lettura2[i].split(" ")               #inserisce i 2 estremi in un array di 2 elementi
+    j = 0
+    while vert[j]._element != int(endpoints[0]):
+        j = j+1
+    print(vert[j]._element)
+    z = 0
+    print("fine")
+    while vert[z]._element != int(endpoints[1]):
+        z = z + 1
+    print(vert[z]._element)
+    graph4.insert_edge(vert[j],vert[z])
+    i = i+1
+print("Archi: [")
+for e in graph4.edges():
+    print(e, end=", ")
+print("]\n\n")
+
+print("Greedy vertex cover: ")
+listGVC4 = graph4.greedy_vertex_cover()
+for elem in listGVC4:
+    print(elem, end=", ")
+print("\n\n")
+print("Min vertex cover: ")
+listMVC4 = graph4.min_vertex_cover()
+for elem in listMVC4:
     print(elem, end=", ")
 print("\n\n\n")
