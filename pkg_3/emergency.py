@@ -21,19 +21,19 @@ a N, che stazionino sempre negli incroci e che il luogo dell’intervento sia un
 
 
 class CityGraph(Graph):
-    def __init__(self):
-        super().__init__(True)
+    def __init__(self, direct):
+        super().__init__(direct)
 
     def emergency_call(self, pos, v, k):
+        #appunti: provara ad invertire gli archi 
         cloud = shortest_path_lengths(self, v)
         sol= []
-        print("##RESULT DIJKSTRA##")
         j=1
-        print("CLOUD",len(cloud))
+        #print("CLOUD",len(cloud))
         for vertex in cloud:
             if j > k:
                 break
-            print(vertex, cloud[vertex])
+            #print(vertex, cloud[vertex])
             if vertex in pos:
                 sol+=[[pos[vertex], vertex._element, cloud[vertex]], ]
                 j+=1
@@ -84,15 +84,30 @@ class CityGraph(Graph):
 
 
 ###############
-citygraph = CityGraph()
-citygraph.readFile("city_map.txt", 70)
-#citygraph.readFile("example.txt",6)
-lista = list(citygraph.vertices())
-print(len(lista))
+print("\n###### City 1 - 70 Incroci - 366 Strade ######")
+city1 = CityGraph(True)
+city1.readFile("city_map.txt", 70)
+lista = list(city1.vertices())
 pointEmergency = lista[rand.randint(0,len(lista)-1)]
-solution = citygraph.calling911(pointEmergency)
-print("\nVolanti richieste" , len(solution))
+solution = city1.calling911(pointEmergency)
+print("\nCity 1")
+print("\nRichiesta soccorso dall'incrocio: ",pointEmergency)
+print("Volanti richieste:" , len(solution))
 
 for elem in solution:
     print("\nInformazione volante:")
-    print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1], "\nDistanza Vettura-Emergenza:", elem[2])
+    print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1], "\nDistanza della volante dal punto di emergenza:", elem[2])
+
+print("\n###### City 2 - 6 Incroci - 7 Strade ######")
+city2 = CityGraph(True)
+city2.readFile("example.txt",6)
+lista = list(city2.vertices())
+pointEmergency = lista[rand.randint(0,len(lista)-1)]
+solution = city2.calling911(pointEmergency)
+print("\nCity 2")
+print("\nRichiesta soccorso dall'incrocio: ",pointEmergency)
+print("Volanti richieste:" , len(solution))
+
+for elem in solution:
+    print("\nInformazione volante:")
+    print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1], "\nDistanza della volante dal punto di emergenza:", elem[2])
