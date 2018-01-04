@@ -1,5 +1,6 @@
 from pkg_1.MyGraph import MyGraph
-
+import time
+import random
 
 print("PRIMO ESEMPIO: Grafo non diretto non pesato con 8 vertici e 10 archi")
 graph1 = MyGraph()
@@ -14,7 +15,7 @@ vertex8 = graph1.insert_vertex("H")
 print("VERTICI: [")
 for v in graph1.vertices():
     print(v, end=", ")
-print("\n]\n\n")
+print("\n]\n")
 
 graph1.insert_edge(vertex1, vertex2)
 graph1.insert_edge(vertex1, vertex3)
@@ -29,19 +30,28 @@ graph1.insert_edge(vertex8, vertex7)
 
 print("ARCHI: [")
 for e in graph1.edges():
-    print (e, end="\n")
-print("]\n\n")
+    print (e, end=", ")
+print("]\n")
 
 print("Greedy vertex cover: ")
+inizio_GVC = time.clock()
 listGVC = graph1.greedy_vertex_cover()
+fine_GVC = time.clock()
+t_GVC = fine_GVC - inizio_GVC
 for elem in listGVC:
     print(elem, end=", ")
-print("\n\n")
-print("Min vertex cover: ")
+print("\nMin vertex cover: ")
+inizio_MVC = time.clock()
 listMVC = graph1.min_vertex_cover()
+fine_MVC = time.clock()
+t_MVC = fine_MVC - inizio_MVC
 for elem in listMVC:
     print(elem, end=", ")
-print("\n\n\n")
+print("\n\nGREEDY --> Dim =", len(listGVC), ", Time =", t_GVC, "s\n")
+print("MIN --> Dim =", len(listMVC), ", Time =", t_MVC, "s\n")
+print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "vertici in più rispetto all'algoritmo Min.\n")
+print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
+print("\n\n")
 
 
 print("SECONDO ESEMPIO: Grafo non diretto non pesato con 34 vertici e 78 archi")
@@ -77,15 +87,24 @@ for e in graph2.edges():
 print("]\n\n")
 
 print("Greedy vertex cover: ")
-listGVC2 = graph2.greedy_vertex_cover()
-for elem in listGVC2:
+inizio_GVC = time.clock()
+listGVC = graph2.greedy_vertex_cover()
+fine_GVC = time.clock()
+t_GVC = fine_GVC - inizio_GVC
+for elem in listGVC:
     print(elem, end=", ")
+print("\nMin vertex cover: ")
+inizio_MVC = time.clock()
+listMVC = graph2.min_vertex_cover()
+fine_MVC = time.clock()
+t_MVC = fine_MVC - inizio_MVC
+for elem in listMVC:
+    print(elem, end=", ")
+print("\n\nGREEDY --> Dim =", len(listGVC), ", Time =", t_GVC, "s\n")
+print("MIN --> Dim =", len(listMVC), ", Time =", t_MVC, "s\n")
+print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "vertici in più rispetto all'algoritmo Min.\n")
+print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
 print("\n\n")
-print("Min vertex cover: ")
-listMVC2 = graph2.min_vertex_cover()
-for elem in listMVC2:
-    print(elem, end=", ")
-print("\n\n\n")
 
 print("TERZO ESEMPIO: Grafo non diretto non pesato con 12 vertici e 17 archi")
 graph3 = MyGraph()
@@ -130,15 +149,24 @@ for e in graph3.edges():
 print("]\n\n")
 
 print("Greedy vertex cover: ")
-listGVC3 = graph3.greedy_vertex_cover()
-for elem in listGVC3:
+inizio_GVC = time.clock()
+listGVC = graph3.greedy_vertex_cover()
+fine_GVC = time.clock()
+t_GVC = fine_GVC - inizio_GVC
+for elem in listGVC:
     print(elem, end=", ")
+print("\nMin vertex cover: ")
+inizio_MVC = time.clock()
+listMVC = graph3.min_vertex_cover()
+fine_MVC = time.clock()
+t_MVC = fine_MVC - inizio_MVC
+for elem in listMVC:
+    print(elem, end=", ")
+print("\n\nGREEDY --> Dim =", len(listGVC), ", Time =", t_GVC, "s\n")
+print("MIN --> Dim =", len(listMVC), ", Time =", t_MVC, "s\n")
+print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "vertici in più rispetto all'algoritmo Min.\n")
+print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
 print("\n\n")
-print("Min vertex cover: ")
-listMVC3 = graph3.min_vertex_cover()
-for elem in listMVC3:
-    print(elem, end=", ")
-print("\n\n\n")
 
 
 print("QUARTO ESEMPIO: Grafo non diretto non pesato con 15 vertici e 51 archi")
@@ -174,12 +202,63 @@ for e in graph4.edges():
 print("]\n\n")
 
 print("Greedy vertex cover: ")
-listGVC4 = graph4.greedy_vertex_cover()
-for elem in listGVC4:
+inizio_GVC = time.clock()
+listGVC = graph4.greedy_vertex_cover()
+fine_GVC = time.clock()
+t_GVC = fine_GVC - inizio_GVC
+for elem in listGVC:
     print(elem, end=", ")
+print("\nMin vertex cover: ")
+inizio_MVC = time.clock()
+listMVC = graph4.min_vertex_cover()
+fine_MVC = time.clock()
+t_MVC = fine_MVC - inizio_MVC
+for elem in listMVC:
+    print(elem, end=", ")
+print("\n\nGREEDY --> Dim =", len(listGVC), ", Time =", t_GVC, "s\n")
+print("MIN --> Dim =", len(listMVC), ", Time =", t_MVC, "s\n")
+print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "vertici in più rispetto all'algoritmo Min.\n")
+print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
 print("\n\n")
-print("Min vertex cover: ")
-listMVC4 = graph4.min_vertex_cover()
-for elem in listMVC4:
+
+
+print("QUINTO ESEMPIO: Grafo non diretto non pesato con 15 vertici e 51 archi")
+graph5 = MyGraph()
+vert5 = []
+R = 20
+for i in range(1, R+1):
+    vert5.append(graph5.insert_vertex(i))
+print("Vertici: [")
+for v in graph5.vertices():
+    print(v, end=", ")
+print("]\n\n")
+
+num_edges = random.randint(60,80)
+i = 0
+while i < num_edges:
+    graph5.insert_edge(vert5[random.randint(1, R-1)], vert5[random.randint(1, R-1)])
+    i = i + 1
+print("Archi: [")
+for e in graph5.edges():
+    print(e, end=", ")
+print("]\n\n")
+
+print("Greedy vertex cover: ")
+inizio_GVC = time.clock()
+listGVC = graph5.greedy_vertex_cover()
+fine_GVC = time.clock()
+t_GVC = fine_GVC - inizio_GVC
+for elem in listGVC:
     print(elem, end=", ")
-print("\n\n\n")
+print("\nMin vertex cover: ")
+inizio_MVC = time.clock()
+listMVC = graph5.min_vertex_cover()
+fine_MVC = time.clock()
+t_MVC = fine_MVC - inizio_MVC
+for elem in listMVC:
+    print(elem, end=", ")
+print("\n\nGREEDY --> Dim =", len(listGVC), ", Time =", t_GVC, "s\n")
+print("MIN --> Dim =", len(listMVC), ", Time =", t_MVC, "s\n")
+print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "vertici in più rispetto all'algoritmo Min.\n")
+print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
+print("\n\n")

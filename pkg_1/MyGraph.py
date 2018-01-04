@@ -26,23 +26,20 @@ class MyGraph (Graph):
             lastCount = 0
             for e in self.edges():
                 E.append(e)
-            #print ("i = ", i)
+
             while len(E) != 0:
                 if len(E) > i:
                     e = E.pop(i)                    #l'arco viene già eliminato
                 else:
                     e = E.pop()
                 u, v = e.endpoints()
-                #print ("u = ", u, ", v =", v)
                 deg_u = self.degree(u)
                 deg_v = self.degree(v)
-                #print ("deg_u: ", deg_u, ", deg_v", deg_v)
                 if (deg_u > 1 and deg_u > deg_v) or deg_v == 1:
                     vertexCover[u] = {}             #u copre almeno due archi quindi lo inserisce nella soluzione
                     lastCount = lastCount + 1
                     for e in E.copy():
                         if e._origin == u or e._destination == u:
-                            #print (e)
                             E.remove(e)
                 else:                               #v copre almeno due archi
                     vertexCover[v] = {}             #lo inserisce nella soluzione
@@ -50,15 +47,7 @@ class MyGraph (Graph):
                     for e in E.copy():
                         if e._origin == v or e._destination == v:
                             E.remove(e)
-            '''print ("lastCount = ", lastCount, end="\n")
-            print("LAST: ")
-            for elem in vertexCover:
-                print(elem, end=", ")
-            print("\n")
-            print("PREVIOUS: ")
-            for elem in previousSol:
-                print(elem, end=", ")'''
-            #print("\n")
+
             if lastCount < previousCount:
                 previousCount = lastCount
                 del(previousSol)
@@ -67,6 +56,7 @@ class MyGraph (Graph):
                     previousSol[v] = {}
             del(vertexCover)
             vertexCover = {}
+
         return previousSol
 
 
@@ -84,3 +74,13 @@ class MyGraph (Graph):
                 if e._origin == u or e._origin == v or e._destination == u or e._destination == v:
                     E.remove(e)                     #li rimuove
         return vertexCover
+
+    def insert_edge(self, u, v, x=None):
+        """Insert and return a new Edge from u to v with auxiliary element x.
+
+        Raise a ValueError if u and v are not vertices of the graph.
+        """
+        if self.get_edge(u, v) is None:  # without error checking
+            e = self.Edge(u, v, x)
+            self._outgoing[u][v] = e
+            self._incoming[v][u] = e
