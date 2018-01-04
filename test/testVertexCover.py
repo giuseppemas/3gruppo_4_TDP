@@ -126,7 +126,7 @@ graph3.insert_edge(vertex6, vertex8)
 
 print("ARCHI: [")
 for e in graph3.edges():
-    print (e, end="\n")
+    print (e, end=", ")
 print("]\n\n")
 
 print("Greedy vertex cover: ")
@@ -141,11 +141,11 @@ for elem in listMVC3:
 print("\n\n\n")
 
 
-print("QUARTO ESEMPIO: Grafo non diretto non pesato con 15 vertici e 32 archi")
+print("QUARTO ESEMPIO: Grafo non diretto non pesato con 15 vertici e 51 archi")
 graph4 = MyGraph()
-vert = []
+vert2 = []
 for i in range (1,16):
-    vert.append(graph4.insert_vertex(i))
+    vert2.append(graph4.insert_vertex(i))
 print("Vertici: [")
 for v in graph4.vertices():
     print(v, end=", ")
@@ -155,21 +155,18 @@ in_file = open("test1.txt","r")              #lettura da file
 testo2 = in_file.read()
 in_file.close()
 lettura2 = testo2.splitlines()
-lettura2 = list(lettura)
-lenLettura2 = len(lettura)
+lettura2 = list(lettura2)
+lenLettura2 = len(lettura2)
 i = 2
 while i < lenLettura2:
     endpoints = lettura2[i].split(" ")               #inserisce i 2 estremi in un array di 2 elementi
     j = 0
-    while vert[j]._element != int(endpoints[0]):
+    while vert2[j]._element != int(endpoints[0]):
         j = j+1
-    print(vert[j]._element)
     z = 0
-    print("fine")
-    while vert[z]._element != int(endpoints[1]):
+    while vert2[z]._element != int(endpoints[1]):
         z = z + 1
-    print(vert[z]._element)
-    graph4.insert_edge(vert[j],vert[z])
+    graph4.insert_edge(vert2[j],vert2[z])
     i = i+1
 print("Archi: [")
 for e in graph4.edges():
