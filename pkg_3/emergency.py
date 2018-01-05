@@ -1,8 +1,8 @@
 from TdP_collections.graphs.graph import Graph
 from TdP_collections.graphs.shortest_paths import *
-
-
 import random as rand
+
+
 """Il servizio di volanti della polizia prevede che una serie di pattuglie siano continuamente
 in giro sul territorio per poter intervenire in casi di emergenza. Quando giunge una
 richiesta di intervento, la centrale operativa individua le volanti che in quel momento
@@ -24,8 +24,13 @@ class CityGraph(Graph):
     def __init__(self, direct):
         super().__init__(direct)
 
+    def  invert_edges(self):
+        self._outgoing, self._incoming = self._incoming , self._outgoing
+
     def emergency_call(self, pos, v, k):
-        #appunti: provara ad invertire gli archi 
+        #appunti: provare ad invertire gli archi
+        self.invert_edges()
+
         cloud = shortest_path_lengths(self, v)
         sol= []
         j=1
