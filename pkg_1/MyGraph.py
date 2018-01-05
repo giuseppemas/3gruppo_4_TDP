@@ -60,6 +60,11 @@ class MyGraph (Graph):
         return previousSol
 
 
+    def exponential_min_vertex_cover_recursive(self):
+        if self.edge_count() == 0:
+            return self.vertices()
+
+
     def greedy_vertex_cover(self):
         vertexCover = {}
         E = set()
@@ -75,6 +80,9 @@ class MyGraph (Graph):
                     E.remove(e)                     #li rimuove
         return vertexCover
 
+
+
+    #Funzione usata per i test
     def insert_edge(self, u, v, x=None):
         """Insert and return a new Edge from u to v with auxiliary element x.
 
