@@ -28,15 +28,13 @@ class CityGraph(Graph):
         self._outgoing, self._incoming = self._incoming , self._outgoing
 
     def emergency_call(self, pos, v, k):
-        #appunti: provare ad invertire gli archi
         self.invert_edges()
-
         cloud = shortest_path_lengths(self, v)
         sol= []
         j=1
         #print("CLOUD",len(cloud))
         for vertex in cloud:
-            if j > k:
+            if j > k or cloud[vertex] == float('inf'):
                 break
             #print(vertex, cloud[vertex])
             if vertex in pos:
@@ -47,6 +45,7 @@ class CityGraph(Graph):
 
 
     def calling911(self, v):
+        #inizializzazione posizioni volanti
         vertexlist = list(self.vertices())
         n_car = len(vertexlist)//3
         pos = {}
@@ -60,9 +59,25 @@ class CityGraph(Graph):
             print(i, pos[i])
         """
         typeEmergency = rand.randint(1,n_car)
-        print("TypeEmergcency", typeEmergency)
-        return self.emergency_call(pos,v,typeEmergency)
 
+        print("\nRichiesta soccorso dall'incrocio: ", pointEmergency)
+        print("Volanti richieste:", typeEmergency)
+        #individua le volanti più vicine al punto di emergenza
+        sol = self.emergency_call(pos,v,typeEmergency)
+
+        if len(sol)==0:
+            print("Non ci sono volanti che possono raggiungere il punto d'emergenza. Mi dispiace, sei morto")
+        elif len(sol)<typeEmergency:
+            print("Solo",typeEmergency-len(sol), "delle", typeEmergency, "volanti richieste possono riaggiungere il punto di emergenza")
+            self.stampaInfoVolante(sol)
+        else:
+            self.stampaInfoVolante(sol)
+
+    def stampaInfoVolante(self, solution):
+        for elem in solution:
+            print("\nInformazione volante:")
+            print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1],
+                  "\nDistanza della volante dal punto di emergenza:", elem[2])
 
     def readFile(self, filename, node):
         vert = {}
@@ -88,41 +103,18 @@ city1 = CityGraph(True)
 city1.readFile("city_map.txt", 70)
 lista = list(city1.vertices())
 pointEmergency = lista[rand.randint(0,len(lista)-1)]
-solution = city1.calling911(pointEmergency)
-print("\nCity 1")
-print("\nRichiesta soccorso dall'incrocio: ",pointEmergency)
-print("Volanti richieste:" , len(solution))
-
-for elem in solution:
-    print("\nInformazione volante:")
-    print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1], "\nDistanza della volante dal punto di emergenza:", elem[2])
+city1.calling911(pointEmergency)
 
 print("\n###### City 2 - 6 Incroci - 7 Strade ######")
 city2 = CityGraph(True)
 city2.readFile("city2.txt",6)
 lista = list(city2.vertices())
 pointEmergency = lista[rand.randint(0,len(lista)-1)]
-solution = city2.calling911(pointEmergency)
-print("\nCity 2")
-print("\nRichiesta soccorso dall'incrocio: ",pointEmergency)
-print("Volanti richieste:" , len(solution))
-
-for elem in solution:
-    print("\nInformazione volante:")
-    print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1], "\nDistanza della volante dal punto di emergenza:", elem[2])
-
+city2.calling911(pointEmergency)
 
 print("\n###### City 3 - 8 Incroci - 13 Strade ######")
 city2 = CityGraph(True)
 city2.readFile("city3.txt", 8)
 lista = list(city2.vertices())
 pointEmergency = lista[rand.randint(0, len(lista) - 1)]
-solution = city2.calling911(pointEmergency)
-print("\nCity 3")
-print("\nRichiesta soccorso dall'incrocio: ", pointEmergency)
-print("Volanti richieste:", len(solution))
-
-for elem in solution:
-    print("\nInformazione volante:")
-    print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1],
-          "\nDistanza della volante dal punto di emergenza:", elem[2])
+city2.calling911(pointEmergency)
