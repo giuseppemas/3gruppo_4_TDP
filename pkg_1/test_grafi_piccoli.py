@@ -52,18 +52,7 @@ print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "v
 print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
 print("\n\n")
 
-print("Exponential Min Vertex Cover: ")
-inizio_EMVC = time.clock()
-listEMVC = graph1.min_vertex_cover2()
-print("type: ", type(listEMVC))
-fine_EMVC = time.clock()
-t_EMVC = fine_EMVC - inizio_EMVC
-for elem in listEMVC:
-    print(elem, end=", ")
-print("EXP MIN --> Dim =", len(listEMVC), ", Time =", t_EMVC, "s\n")
-print("La dimensione dell'algoritmo Greedy è di", len(listMVC)-len(listEMVC), "vertici in più rispetto all'algoritmo Min.\n")
-print("L'algoritmo Greedy è", t_MVC/t_EMVC, "secondi piu' veloce di quello Min.\n")
-print("\n\n")
+
 
 print("SECONDO ESEMPIO: Grafo non diretto non pesato con 12 vertici e 17 archi")
 graph3 = MyGraph()
@@ -127,18 +116,6 @@ print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "v
 print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
 print("\n\n")
 
-print("Exponential Min Vertex Cover: ")
-inizio_EMVC = time.clock()
-listEMVC = graph3.min_vertex_cover2()
-print("type: ", type(listEMVC))
-fine_EMVC = time.clock()
-t_EMVC = fine_EMVC - inizio_EMVC
-for elem in listEMVC:
-    print(elem, end=", ")
-print("EXP MIN --> Dim =", len(listEMVC), ", Time =", t_EMVC, "s\n")
-print("La dimensione dell'algoritmo Greedy è di", len(listMVC)-len(listEMVC), "vertici in più rispetto all'algoritmo Min.\n")
-print("L'algoritmo Greedy è", t_MVC/t_EMVC, "secondi piu' veloce di quello Min.\n")
-print("\n\n")
 
 
 print("TERZO ESEMPIO: Grafo non diretto non pesato con 15 vertici e 51 archi")
@@ -191,17 +168,4 @@ print("\n\nGREEDY --> Dim =", len(listGVC), ", Time =", t_GVC, "s\n")
 print("MIN --> Dim =", len(listMVC), ", Time =", t_MVC, "s\n")
 print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "vertici in più rispetto all'algoritmo Min.\n")
 print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
-print("\n\n")
-
-print("Exponential Min Vertex Cover: ")
-inizio_EMVC = time.clock()
-listEMVC = graph4.min_vertex_cover2()
-print("type: ", type(listEMVC))
-fine_EMVC = time.clock()
-t_EMVC = fine_EMVC - inizio_EMVC
-for elem in listEMVC:
-    print(elem, end=", ")
-print("EXP MIN --> Dim =", len(listEMVC), ", Time =", t_EMVC, "s\n")
-print("La dimensione dell'algoritmo Greedy è di", len(listMVC)-len(listEMVC), "vertici in più rispetto all'algoritmo Min.\n")
-print("L'algoritmo Greedy è", t_MVC/t_EMVC, "secondi piu' veloce di quello Min.\n")
 print("\n\n")

@@ -44,7 +44,7 @@ class MyGraph (Graph):
 
     '''Funzioni di Ricerca Esaustiva per il calcolo del min vertex cover'''
 
-    def min_vertex_cover2(self):
+    def min_vertex_cover(self):
         E = set()
         vertexCover = {}
         k = self.vertex_count()
