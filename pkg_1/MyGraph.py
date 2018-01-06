@@ -60,9 +60,35 @@ class MyGraph (Graph):
         return previousSol
 
 
-    def exponential_min_vertex_cover_recursive(self):
-        if self.edge_count() == 0:
-            return self.vertices()
+    def exponential_min_vertex_cover(self):
+        E = list()
+        for e in self.edges():
+            E.append(e)
+        self.recursive_min_vertex_cover(E, minV=list())
+
+
+    def recursive_min_vertex_cover(self, E, minV):
+        E = list()
+        if len(E) == 1:
+            edge = E.pop(0)
+            u, v = edge.endpoints()
+            return minV.append(u)
+        else:
+            uv = E.pop(0)
+            u, v = uv.endpoints()
+            if self.degree(u) <= 1:
+                minV.append(v)
+                first = self.recursive_min_vertex_cover(E, minV)
+            elif self.degree(v) <= 1:
+                minV.append(u)
+                second = self.recursive_min_vertex_cover(E, minV)
+            else:
+                first = self.recursive_min_vertex_cover(E, minV)
+                second = self.recursive_min_vertex_cover(E, minV)
+                if len(first) > len(second):
+                    return first
+                else:
+                    return second
 
 
     def greedy_vertex_cover(self):
