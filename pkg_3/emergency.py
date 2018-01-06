@@ -65,26 +65,20 @@ class CityGraph(Graph):
 
 
     def readFile(self, filename, node):
-        vert = []
+        vert = {}
         for i in range(1, node+1):
-            vert.append(self.insert_vertex(i))
+            v = self.insert_vertex(i)
+            vert[v.element()] = v
 
         in_file = open(filename, "r")  # lettura da file
         testo = in_file.read()
         in_file.close()
         lettura = testo.splitlines()
-
         lenLettura = len(lettura)
         i = 2
         while i < lenLettura:
             endpoints = lettura[i].split(" ")  # inserisce i 2 estremi in un array di 2 elementi
-            j = 0
-            while vert[j]._element != int(endpoints[0]):
-                j = j + 1
-            z = 0
-            while vert[z]._element != int(endpoints[1]):
-                z = z + 1
-            self.insert_edge(vert[j], vert[z], int(endpoints[2]))
+            self.insert_edge(vert[int(endpoints[0])], vert[int(endpoints[1])], int(endpoints[2]))
             i = i + 1
 
 
@@ -105,7 +99,7 @@ for elem in solution:
 
 print("\n###### City 2 - 6 Incroci - 7 Strade ######")
 city2 = CityGraph(True)
-city2.readFile("example.txt",6)
+city2.readFile("city2.txt",6)
 lista = list(city2.vertices())
 pointEmergency = lista[rand.randint(0,len(lista)-1)]
 solution = city2.calling911(pointEmergency)
@@ -116,3 +110,19 @@ print("Volanti richieste:" , len(solution))
 for elem in solution:
     print("\nInformazione volante:")
     print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1], "\nDistanza della volante dal punto di emergenza:", elem[2])
+
+
+print("\n###### City 3 - 8 Incroci - 13 Strade ######")
+city2 = CityGraph(True)
+city2.readFile("city3.txt", 8)
+lista = list(city2.vertices())
+pointEmergency = lista[rand.randint(0, len(lista) - 1)]
+solution = city2.calling911(pointEmergency)
+print("\nCity 3")
+print("\nRichiesta soccorso dall'incrocio: ", pointEmergency)
+print("Volanti richieste:", len(solution))
+
+for elem in solution:
+    print("\nInformazione volante:")
+    print("Codice Volante:", elem[0], "\nPosizione di Partenza della volante:", elem[1],
+          "\nDistanza della volante dal punto di emergenza:", elem[2])
