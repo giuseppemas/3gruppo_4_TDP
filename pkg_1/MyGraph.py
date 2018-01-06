@@ -13,84 +13,7 @@ class MyGraph (Graph):
         super(MyGraph, self).__init__()
 
 
-    def min_vertex_cover(self):
-        n = self.vertex_count()
-        previousSol = {}
-        for v in self.vertices():
-            previousSol[v] = {}
-        previousCount = n
-        vertexCover = {}
-        E = list()
-
-        for i in range(1, n):
-            lastCount = 0
-            for e in self.edges():
-                E.append(e)
-
-            while len(E) != 0:
-                if len(E) > i:
-                    e = E.pop(i)                    #l'arco viene già eliminato
-                else:
-                    e = E.pop()
-                u, v = e.endpoints()
-                deg_u = self.degree(u)
-                deg_v = self.degree(v)
-                if (deg_u > 1 and deg_u > deg_v) or deg_v == 1:
-                    vertexCover[u] = {}             #u copre almeno due archi quindi lo inserisce nella soluzione
-                    lastCount = lastCount + 1
-                    for e in E.copy():
-                        if e._origin == u or e._destination == u:
-                            E.remove(e)
-                else:                               #v copre almeno due archi
-                    vertexCover[v] = {}             #lo inserisce nella soluzione
-                    lastCount = lastCount + 1
-                    for e in E.copy():
-                        if e._origin == v or e._destination == v:
-                            E.remove(e)
-
-            if lastCount < previousCount:
-                previousCount = lastCount
-                del(previousSol)
-                previousSol = {}
-                for v in vertexCover.keys():
-                    previousSol[v] = {}
-            del(vertexCover)
-            vertexCover = {}
-
-        return previousSol
-
-
-    def exponential_min_vertex_cover(self):
-        E = list()
-        for e in self.edges():
-            E.append(e)
-        self.recursive_min_vertex_cover(E, minV=list())
-
-
-    def recursive_min_vertex_cover(self, E, minV):
-        E = list()
-        if len(E) == 1:
-            edge = E.pop(0)
-            u, v = edge.endpoints()
-            return minV.append(u)
-        else:
-            uv = E.pop(0)
-            u, v = uv.endpoints()
-            if self.degree(u) <= 1:
-                minV.append(v)
-                first = self.recursive_min_vertex_cover(E, minV)
-            elif self.degree(v) <= 1:
-                minV.append(u)
-                second = self.recursive_min_vertex_cover(E, minV)
-            else:
-                first = self.recursive_min_vertex_cover(E, minV)
-                second = self.recursive_min_vertex_cover(E, minV)
-                if len(first) > len(second):
-                    return first
-                else:
-                    return second
-
-
+    '''Funzione Greedy per il calcolo del vertex cover'''
     def greedy_vertex_cover(self):
         vertexCover = {}
         E = set()
@@ -107,8 +30,7 @@ class MyGraph (Graph):
         return vertexCover
 
 
-
-    #Funzione usata per i test
+    '''Funzione usata per i test'''
     def insert_edge(self, u, v, x=None):
         """Insert and return a new Edge from u to v with auxiliary element x.
 
@@ -118,3 +40,38 @@ class MyGraph (Graph):
             e = self.Edge(u, v, x)
             self._outgoing[u][v] = e
             self._incoming[v][u] = e
+
+
+    '''Funzioni di Ricerca Esaustiva per il calcolo del min vertex cover'''
+
+    def min_vertex_cover2(self):
+        E = set()
+        vertexCover = {}
+        k = self.vertex_count()
+        for e in self.edges():
+            E.add(e)
+        return self.recursive_vertex_cover(E , vertexCover, k)
+
+    def recursive_vertex_cover(self, E, vertexCover, k):
+        if len(E) == 0:
+            return vertexCover
+        uv = E.pop()
+        u, v = uv.endpoints()
+        vertexCover1 = vertexCover.copy()
+        vertexCover1[u] = {}
+        E1 = E.copy()
+        for e in E:
+            if e._origin == u or e._destination == u:
+                E1.remove(e)
+        first = self.recursive_vertex_cover(E1, vertexCover1, k - 1)
+        vertexCover2 = vertexCover.copy()
+        vertexCover2[v] = {}
+        E2 = E.copy()
+        for e in E:
+            if e._origin == v or e._destination == v:
+                E2.remove(e)
+        second = self.recursive_vertex_cover(E2, vertexCover2, k - 1)
+        if len(first) > len(second):
+            return second
+        else:
+            return first
