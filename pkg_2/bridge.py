@@ -50,7 +50,7 @@ def bridge(g):
 
     # Salviamo in una lista tutti gli archi DISCOVERY, i quali sono tutti potenziali BRIDGE
     for v in g.vertices():
-        print("TYPE_VERT: ", type(v))
+        #print("TYPE_VERT: ", type(v))
         #print("funzione: ", foresta[v])
         if foresta[v] is None:
             continue
@@ -72,24 +72,24 @@ def bridge(g):
         if e not in discovery:
             if visitati[e.endpoints()[0]] < visitati[e.endpoints()[1]]:
                 # Se l'origine è stata visitata prima della destinazione inverto i vertici
-                newEdge = Graph.Edge(visitati[e.endpoints()[1]], visitati[e.endpoints()[0]], None)
+                #print("INVERSIONE:", type(e.endpoints()[0]))
+                newEdge = Graph.Edge(e.endpoints()[1], e.endpoints()[0], None)
                 back.append(newEdge)
             else:
                 back.append(e)
 
-    for i in back:
-        print("BACK: ", type(i), i)
-
-    for i in bridge:
-        print("BRDIGE: ", type(i), i)
-
     for e in back:
-        current = e.endpoints()
+        #print("Eliminazione dei BACK:")
 
-        print(type(e), type(current))   # QUESTO E' IL PROBLEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        #while current is not e.endpoints()[1]:
-            #print(current)
-            #current = foresta[current].endpoints[0]
+        current_edge = foresta[e.endpoints()[0]]
+        last_edge = foresta[e.endpoints()[1]]
+        #print("ARCHI LIMITE: ", last_edge, current_edge)
+
+        while current_edge is not last_edge:
+            #print("ARCHI WHILE: ", last_edge, current_edge)
+            #print("CANCELLO: ", current_edge)
+            bridge.remove(current_edge)
+            current_edge = foresta[current_edge.endpoints()[0]]
 
     return bridge
 
@@ -116,7 +116,9 @@ g.insert_edge(vertici[2],vertici[3])
 archi = list(g.edges())
 print("Questi sono gli archi:")
 for i in range(len(archi)):
-    print(archi[i])
+    u,v = archi[i].endpoints()
+
+    print(archi[i], type(archi[i]), type(u), type(v))
 
 print("\nDEBUG:")
 foresta = DFS_complete(g)
@@ -127,5 +129,7 @@ for i in range(4):
 
 print("Chiamata a funzione BRIDGE:")
 b = bridge(g)
+print("Questi sono i BRIDGE:")
 for i in b:
     print(i)
+
