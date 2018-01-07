@@ -1,6 +1,7 @@
 from TdP_collections.graphs.dfs import DFS_complete
 from TdP_collections.graphs.graph import Graph
 import random
+import time
 
 """
 Preso in input un oggetto MyGraph G, restituisce un bridge di G oppure None se il grafo è biconnesso
@@ -83,6 +84,15 @@ def bridge(g):
 
         bridge = bridge.difference(noBridge)  # O(len(m1) + len(m2))
 
+    '''
+    for i in ordine:
+        print("ORDINE: ", i)
+    for i in back:
+        print("BACK: ", i)
+    for i in bridge:
+        print("BRIDGE: ", i)
+    '''
+
     return bridge
 
 def randomGraph(n,m):
@@ -130,20 +140,22 @@ def connected(g):
 #---------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    inizio_tot = time.clock()
     N = 100
     n = 50
     m = 70
     errori = 0
     successi = 0
     connessi = 0
+    tempo_tot = 0
     while connessi < N:
         g1 = randomGraph(n, m)
         g_temp = g1
 
         if connected(g_temp):
-
+            inizio = time.clock()
             connessi += 1
-            print("GENERAZIONE GRAFO RANDOM: ", connessi + 1, "\n")
+            print("GENERAZIONE GRAFO RANDOM: ", connessi, "\n")
             print("Numero dei vertici: ", n)
             print("Archi", m, ":")
             for e in g1.edges():
@@ -166,6 +178,12 @@ if __name__ == "__main__":
                     print("TEST FALLITO !!")
                     errori += 1
                 g_temp.insert_edge(i.endpoints()[0], i.endpoints()[1])
+            fine = time.clock()
+            tempo_tot = tempo_tot + fine - inizio
+            print("Tempo di esecuzione: ", fine - inizio, "secondi")
 
     print("\nLa funzione ha trovato con successo ", successi, "bridge, sbagliando ", errori, " volte. \nGrafi testati:",
           connessi)
+    fine_tot = time.clock()
+    print("Tempo di esecuzione totale: ", fine_tot-inizio_tot,"secondi")
+    print("Tempo di esecuzione medio della funzione: ", tempo_tot/N, "secondi")
