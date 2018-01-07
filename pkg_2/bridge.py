@@ -54,7 +54,7 @@ def bridge(g):
             back.append(e)
 
     for e in back:
-        print("BACK IN CICLO: ", e)
+        #print("BACK IN CICLO: ", e)
         v1 = e.endpoints()[0]
         v2 = e.endpoints()[1]
         start = None
@@ -65,14 +65,12 @@ def bridge(g):
         for d in ordine:
             if trovato is True:
                 continue
-            print("STATO: ", start, end, trovato, d)
+            #print("STATO: ", start, end, trovato, d)
             if d.endpoints()[0] == v1:
-                print("Entra nell'IF")
                 start = v1
                 end = v2
                 noBridge.clear()
             elif d.endpoints()[0] == v2:
-                print("Entra nell'ELIF")
                 start = v2
                 end = v1
 
@@ -81,19 +79,9 @@ def bridge(g):
                 if d.endpoints()[1] == end:
                     trovato = True
                 rim = g.get_edge(d.endpoints()[0], d.endpoints()[1])
-                print("ARCO DA ELIMINARE: ", rim)
                 noBridge.add(rim)
 
-            for i in noBridge:
-                print("NOBRIDGE: ", i)
-            for i in bridge:
-                print("BRIDGE: ", i)
         bridge = bridge.difference(noBridge)
-
-    for i in ordine:
-        print("ORDINE: ", i)
-    for i in back:
-        print("BACK: ", i)
 
     return bridge
 
@@ -117,20 +105,13 @@ def randomGraph(n,m):
     r1 = random.randint(0,n-1)
     r2 = random.randint(0,n-1)
     while r2 == r1:
+
         r2 = random.randint(0,n-1)
     g.insert_edge(vertici[r1], vertici[r2])
     nonConnessi.remove(vertici[r1])
     nonConnessi.remove(vertici[r2])
     connessi.append(vertici[r1])
     connessi.append(vertici[r2])
-
-    while g.edge_count() < n - 2:
-        r1 = random.randint(0, len(nonConnessi)-1)
-        r2 = random.randint(0, len(connessi)-1)
-
-        g.insert_edge(nonConnessi[r1], connessi[r2])
-        nonConnessi.remove(nonConnessi[r1])
-        connessi.append(vertici[r1])
 
     k = g.edge_count()
     while k < m:
@@ -157,31 +138,40 @@ def connected(g):
 
 #---------------------------------------TESTING------------------------------------------------
 
-print("GENERAZIONE GRAFO RANDOM:\n")
-g1 = randomGraph(10,14)
-for v in g1.vertices():
-    print("VERTICI: ", v)
-print("")
-for e in g1.edges():
-    print("ARCHI: ", e)
-print("\n\n DEBBUGING FUNZIONE BRIDGE:")
-b = bridge(g1)
-print("\nQuesti sono i BRIDGE:")
-if len(b) == 0:
-    print("Nessuno")
-for i in b:
-    print(i)
+N = 1
+n = 70
+m = 140
+errori = 0
+successi = 0
+connessi = 0
+while connessi < N:
+    g1 = randomGraph(n, m)
+    g_temp = g1
 
-print("\nTESTING DELLE SOLUZIONI:")
+    if connected(g_temp):
+        print("GENERAZIONE GRAFO RANDOM: ", connessi + 1, "\n")
+        print("Numero dei vertici: ", n)
+        print("Archi", m, ":")
+        for e in g1.edges():
+            print(e)
 
-g_esempio = g1
-print(connected(g_esempio))
-for i in b:
-    g_esempio.remove_edge(i.endpoints()[0], i.endpoints()[1])
-    if connected(g_esempio) is False:
-        print("Test verificato.")
-    else:
-        print("TEST FALLITO !!")
-    g_esempio.insert_edge(i.endpoints()[0], i.endpoints()[1])
+        b = bridge(g1)
+        print("\nQuesti sono i BRIDGE:")
+        if len(b) == 0:
+            print("Nessuno")
+        for i in b:
+            print(i)
 
+        connessi  += 1
+        for i in b:
 
+            g_temp.remove_edge(i.endpoints()[0], i.endpoints()[1])
+            if connected(g_temp) is False:
+                print("Test verificato.")
+                successi += 1
+            else:
+                print("TEST FALLITO !!")
+                errori += 1
+            g_temp.insert_edge(i.endpoints()[0], i.endpoints()[1])
+
+print("La funzione ha trovato con successo ", successi,"bridge, sbagliando ", errori," volte. \nGrafi connessi:", connessi)
