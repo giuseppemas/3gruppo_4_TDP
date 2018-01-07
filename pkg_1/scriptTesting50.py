@@ -352,11 +352,9 @@ print("\n\n")
 
 #---------------------------------------------------------------------------------------
 
-N = 100
+N = 40
 n = 50
 m = 70
-errori = 0
-successi = 0
 connessi = 0
 while connessi < N:
     g1 = randomGraph(n, m)
