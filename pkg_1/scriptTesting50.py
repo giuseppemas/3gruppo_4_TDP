@@ -171,7 +171,7 @@ print("\n\n")
 
 
 
-print("Testing50 #48: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 77 archi")
+print("Testing50 #4: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 77 archi")
 graph2 = MyGraph()
 vert = []
 for i in range (1,78):
@@ -225,7 +225,7 @@ print("L'algoritmo Greedy impiega", t_MVC-t_GVC, "secondi in meno rispetto a que
 print("\n\n")
 
 
-print("Testing50 #49: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 100 archi")
+print("Testing50 #5: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 100 archi")
 graph2 = MyGraph()
 vert = []
 for i in range (1,78):
@@ -279,7 +279,7 @@ print("L'algoritmo Greedy impiega", t_MVC-t_GVC, "secondi in meno rispetto a que
 print("\n\n")
 
 
-print("Testing50 #50: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 120 archi")
+print("Testing50 #6: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 120 archi")
 graph2 = MyGraph()
 vert = []
 for i in range (1,78):
