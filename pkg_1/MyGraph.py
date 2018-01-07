@@ -1,4 +1,6 @@
 from TdP_collections.graphs.graph import Graph
+import random
+from TdP_collections.graphs.dfs import DFS_complete
 
 '''
 Valutare sperimentalmente le prestazioni dei due metodi su un campione di almeno k grafi (con k > 50)
@@ -28,18 +30,6 @@ class MyGraph (Graph):
                 if e._origin == u or e._origin == v or e._destination == u or e._destination == v:
                     E.remove(e)                     #li rimuove
         return vertexCover
-
-
-    '''Funzione usata per i test'''
-    def insert_edge(self, u, v, x=None):
-        """Insert and return a new Edge from u to v with auxiliary element x.
-
-        Raise a ValueError if u and v are not vertices of the graph.
-        """
-        if self.get_edge(u, v) is None:  # without error checking
-            e = self.Edge(u, v, x)
-            self._outgoing[u][v] = e
-            self._incoming[v][u] = e
 
 
     '''Funzioni di Ricerca Esaustiva per il calcolo del min vertex cover'''
@@ -120,3 +110,53 @@ class MyGraph (Graph):
             vertexCover = {}
 
         return previousSol
+
+
+    '''Funzioni usate per i test'''
+
+    def insert_edge(self, u, v, x=None):
+        """Insert and return a new Edge from u to v with auxiliary element x.
+
+        Raise a ValueError if u and v are not vertices of the graph.
+        """
+        if self.get_edge(u, v) is None:  # without error checking
+            e = self.Edge(u, v, x)
+            self._outgoing[u][v] = e
+            self._incoming[v][u] = e
+
+def randomGraph(n, m):
+    if m < n - 1:
+        raise Exception("Non può essere un grafo connesso")
+    g = MyGraph()
+    for i in range(n):
+        g.insert_vertex(i + 1)
+
+    vertici = list(g.vertices())
+
+    # Primo Arco
+    r1 = random.randint(0, n - 1)
+    r2 = random.randint(0, n - 1)
+    while r2 == r1:
+        r2 = random.randint(0, n - 1)
+    g.insert_edge(vertici[r1], vertici[r2])
+
+    k = g.edge_count()
+    while k < m:
+
+        r1 = random.randint(0, n - 1)
+        r2 = random.randint(0, n - 1)
+        while r2 == r1:
+            r2 = random.randint(0, n - 1)
+
+        if g.get_edge(vertici[r1], vertici[r2]) is None:
+            g.insert_edge(vertici[r1], vertici[r2], None)
+            k += 1
+    return g
+
+def connected(g):
+    foresta = DFS_complete(g)
+    count = 0
+    for v in g.vertices():
+        if foresta[v] is None:
+            count += 1
+    return count == 1
