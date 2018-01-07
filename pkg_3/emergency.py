@@ -44,10 +44,12 @@ class CityGraph(Graph):
         return sol
 
 
-    def calling911(self, v):
+    def calling911(self):
         #inizializzazione posizioni volanti
         vertexlist = list(self.vertices())
         n_car = len(vertexlist)//3
+        pointEmergency = vertexlist[rand.randint(0, len(vertexlist) - 1)]
+
         pos = {}
         for i in range(1,n_car+1):
             randvertex = vertexlist[rand.randint(0,len(vertexlist)-1)]
@@ -63,7 +65,7 @@ class CityGraph(Graph):
         print("\nRichiesta soccorso dall'incrocio: ", pointEmergency)
         print("Volanti richieste:", typeEmergency)
         #individua le volanti più vicine al punto di emergenza
-        sol = self.emergency_call(pos,v,typeEmergency)
+        sol = self.emergency_call(pos,pointEmergency,typeEmergency)
 
         if len(sol)==0:
             print("Non ci sono volanti che possono raggiungere il punto d'emergenza. Mi dispiace, sei morto")
@@ -101,27 +103,19 @@ class CityGraph(Graph):
 print("\n###### City 1 - 70 Incroci - 366 Strade ######")
 city1 = CityGraph(True)
 city1.readFile("city_map.txt", 70)
-lista = list(city1.vertices())
-pointEmergency = lista[rand.randint(0,len(lista)-1)]
-city1.calling911(pointEmergency)
+city1.calling911()
 
 print("\n###### City 2 - 6 Incroci - 7 Strade ######")
 city2 = CityGraph(True)
 city2.readFile("city2.txt",6)
-lista = list(city2.vertices())
-pointEmergency = lista[rand.randint(0,len(lista)-1)]
-city2.calling911(pointEmergency)
+city2.calling911()
 
 print("\n###### City 3 - 8 Incroci - 13 Strade ######")
 city2 = CityGraph(True)
 city2.readFile("city3.txt", 8)
-lista = list(city2.vertices())
-pointEmergency = lista[rand.randint(0, len(lista) - 1)]
-city2.calling911(pointEmergency)
+city2.calling911()
 
 print("\n###### City 4 - 12 Incroci - 21 Strade ######")
 city2 = CityGraph(True)
 city2.readFile("city4.txt", 12)
-lista = list(city2.vertices())
-pointEmergency = lista[rand.randint(0, len(lista) - 1)]
-city2.calling911(pointEmergency)
+city2.calling911()
