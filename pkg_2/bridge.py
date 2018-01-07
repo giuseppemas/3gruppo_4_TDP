@@ -140,6 +140,8 @@ while connessi < N:
     g_temp = g1
 
     if connected(g_temp):
+
+        connessi += 1
         print("GENERAZIONE GRAFO RANDOM: ", connessi + 1, "\n")
         print("Numero dei vertici: ", n)
         print("Archi", m, ":")
@@ -153,7 +155,6 @@ while connessi < N:
         for i in b:
             print(i)
 
-        connessi  += 1
         for i in b:
 
             g_temp.remove_edge(i.endpoints()[0], i.endpoints()[1])
