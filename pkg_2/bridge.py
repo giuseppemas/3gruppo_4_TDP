@@ -81,7 +81,7 @@ def bridge(g):
                 rim = g.get_edge(d.endpoints()[0], d.endpoints()[1])
                 noBridge.add(rim)
 
-        bridge = bridge.difference(noBridge)
+        bridge = bridge.difference(noBridge)  # O(len(m1) + len(m2))
 
     return bridge
 
@@ -165,4 +165,4 @@ while connessi < N:
                 errori += 1
             g_temp.insert_edge(i.endpoints()[0], i.endpoints()[1])
 
-print("La funzione ha trovato con successo ", successi,"bridge, sbagliando ", errori," volte. \nGrafi connessi:", connessi)
+print("\nLa funzione ha trovato con successo ", successi,"bridge, sbagliando ", errori," volte. \nGrafi testati:", connessi)
