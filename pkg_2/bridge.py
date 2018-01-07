@@ -1,10 +1,18 @@
-from pkg_1.MyGraph import MyGraph
 from TdP_collections.graphs.dfs import DFS_complete
 from TdP_collections.graphs.graph import Graph
+import random
 
 """
 Preso in input un oggetto MyGraph G, restituisce un bridge di G oppure None se il grafo è biconnesso
 """
+class MyGraph (Graph):
+
+    def remove_edge(self, u, v, x=None):
+        if self.get_edge(u, v) is None:  # includes error checking
+            return
+        del self._outgoing[u][v]
+        del self._outgoing[v][u]
+
 def DFS_bridge(g, u, discovered, ordineVisita):
 
   for e in g.incident_edges(u):    # for every outgoing edge from u
@@ -34,11 +42,6 @@ def bridge(g):
 
     foresta, ordine = DFS_complete_bridge(g)
 
-    for v in g.vertices():
-        print("FORESTA: ",foresta[v], v)
-    for i in ordine:
-        print("ORDINE: ", i)
-
     # Salviamo in una lista tutti gli archi DISCOVERY, i quali sono tutti potenziali BRIDGE
     for v in g.vertices():
         if foresta[v] is not None:
@@ -50,14 +53,8 @@ def bridge(g):
         if e not in discovery:
             back.append(e)
 
-    for i in back:
-        print("BACK: ", i)
-    for i in discovery:
-        print("DISCOVERY: ",i)
-    for i in bridge:
-        print("BRIDGE: ", i)
-
     for e in back:
+        print("BACK IN CICLO: ", e)
         v1 = e.endpoints()[0]
         v2 = e.endpoints()[1]
         start = None
@@ -66,70 +63,125 @@ def bridge(g):
         trovato = False
 
         for d in ordine:
+            if trovato is True:
+                continue
+            print("STATO: ", start, end, trovato, d)
             if d.endpoints()[0] == v1:
+                print("Entra nell'IF")
                 start = v1
                 end = v2
                 noBridge.clear()
-            if d.endpoints()[0] == v2:
+            elif d.endpoints()[0] == v2:
+                print("Entra nell'ELIF")
                 start = v2
                 end = v1
 
+
             if start is not None and not(trovato):
-                print("Condizione: ", d, start, end)
                 if d.endpoints()[1] == end:
                     trovato = True
-                d = g.get_edge(d.endpoints()[0], d.endpoints()[1])
-                noBridge.add(d)
+                rim = g.get_edge(d.endpoints()[0], d.endpoints()[1])
+                print("ARCO DA ELIMINARE: ", rim)
+                noBridge.add(rim)
 
-
-        for i in noBridge:
-            print("NOBRIDGE: ", i)
-        for i in bridge:
-            print("BRIDGE: ", i)
+            for i in noBridge:
+                print("NOBRIDGE: ", i)
+            for i in bridge:
+                print("BRIDGE: ", i)
         bridge = bridge.difference(noBridge)
+
+    for i in ordine:
+        print("ORDINE: ", i)
+    for i in back:
+        print("BACK: ", i)
 
     return bridge
 
 def randomGraph(n,m):
-    pass
+
+    if m < n-1:
+        raise Exception("Non può essere un grafo connesso")
+    g = MyGraph()
+    for i in range(n):
+
+        g.insert_vertex(i + 1)
+
+    vertici = list(g.vertices())
+    connessi = list()
+    nonConnessi = list()
+
+    for v in g.vertices():
+        nonConnessi.append(v)
+
+    # Primo Arco
+    r1 = random.randint(0,n-1)
+    r2 = random.randint(0,n-1)
+    while r2 == r1:
+        r2 = random.randint(0,n-1)
+    g.insert_edge(vertici[r1], vertici[r2])
+    nonConnessi.remove(vertici[r1])
+    nonConnessi.remove(vertici[r2])
+    connessi.append(vertici[r1])
+    connessi.append(vertici[r2])
+
+    while g.edge_count() < n - 2:
+        r1 = random.randint(0, len(nonConnessi)-1)
+        r2 = random.randint(0, len(connessi)-1)
+
+        g.insert_edge(nonConnessi[r1], connessi[r2])
+        nonConnessi.remove(nonConnessi[r1])
+        connessi.append(vertici[r1])
+
+    k = g.edge_count()
+    while k < m:
+
+        r1 = random.randint(0, n - 1)
+        r2 = random.randint(0, n - 1)
+        while r2 == r1:
+            r2 = random.randint(0, n - 1)
+
+        if g.get_edge(vertici[r1], vertici[r2]) is None:
+            g.insert_edge(vertici[r1], vertici[r2], None)
+            k += 1
+
+    return g
+
+def connected(g):
+    foresta = DFS_complete(g)
+    count = 0
+    for v in g.vertices():
+        if foresta[v] is None:
+            count += 1
+
+    return count == 1
 
 #---------------------------------------TESTING------------------------------------------------
-g = MyGraph()
-for i in range(6):
-    g.insert_vertex(i+1)
 
-vertici = list(g.vertices())
-
-print("Questi sono i vertici:")
-for i in range(len(vertici)):
-    print(vertici[i], type(vertici[i]), end = "\n")
-
-print("\n")
-
-g.insert_edge(vertici[5],vertici[0])
-g.insert_edge(vertici[0],vertici[3])
-g.insert_edge(vertici[3],vertici[2])
-g.insert_edge(vertici[1],vertici[3])
-g.insert_edge(vertici[3],vertici[4])
-g.insert_edge(vertici[5],vertici[4])
-
-archi = list(g.edges())
-print("Questi sono gli archi:")
-for i in range(len(archi)):
-    u,v = archi[i].endpoints()
-
-    print(archi[i], type(archi[i]), type(u), type(v))
-
-print("\nDEBUG:")
-foresta = DFS_complete(g)
-discovery = list()
-for i in range(4):
-    print(foresta[vertici[i]])
-    discovery.append(foresta[vertici[i]])
-
-print("Chiamata a funzione BRIDGE:")
-b = bridge(g)
-print("Questi sono i BRIDGE:")
+print("GENERAZIONE GRAFO RANDOM:\n")
+g1 = randomGraph(10,14)
+for v in g1.vertices():
+    print("VERTICI: ", v)
+print("")
+for e in g1.edges():
+    print("ARCHI: ", e)
+print("\n\n DEBBUGING FUNZIONE BRIDGE:")
+b = bridge(g1)
+print("\nQuesti sono i BRIDGE:")
+if len(b) == 0:
+    print("Nessuno")
 for i in b:
     print(i)
+
+print("\nTESTING DELLE SOLUZIONI:")
+
+g_esempio = g1
+print(connected(g_esempio))
+for i in b:
+    g_esempio.remove_edge(i.endpoints()[0], i.endpoints()[1])
+    if connected(g_esempio) is False:
+        print("Test verificato.")
+    else:
+        print("TEST FALLITO !!")
+    g_esempio.insert_edge(i.endpoints()[0], i.endpoints()[1])
+
 
