@@ -129,41 +129,43 @@ def connected(g):
 
 #---------------------------------------------------------------------------------------
 
-N = 100
-n = 50
-m = 70
-errori = 0
-successi = 0
-connessi = 0
-while connessi < N:
-    g1 = randomGraph(n, m)
-    g_temp = g1
+if __name__ == "__main__":
+    N = 100
+    n = 50
+    m = 70
+    errori = 0
+    successi = 0
+    connessi = 0
+    while connessi < N:
+        g1 = randomGraph(n, m)
+        g_temp = g1
 
-    if connected(g_temp):
+        if connected(g_temp):
 
-        connessi += 1
-        print("GENERAZIONE GRAFO RANDOM: ", connessi + 1, "\n")
-        print("Numero dei vertici: ", n)
-        print("Archi", m, ":")
-        for e in g1.edges():
-            print(e)
+            connessi += 1
+            print("GENERAZIONE GRAFO RANDOM: ", connessi + 1, "\n")
+            print("Numero dei vertici: ", n)
+            print("Archi", m, ":")
+            for e in g1.edges():
+                print(e)
 
-        b = bridge(g1)
-        print("\nQuesti sono i BRIDGE:")
-        if len(b) == 0:
-            print("Nessuno")
-        for i in b:
-            print(i)
+            b = bridge(g1)
+            print("\nQuesti sono i BRIDGE:")
+            if len(b) == 0:
+                print("Nessuno")
+            for i in b:
+                print(i)
 
-        for i in b:
+            for i in b:
 
-            g_temp.remove_edge(i.endpoints()[0], i.endpoints()[1])
-            if connected(g_temp) is False:
-                print("Test verificato.")
-                successi += 1
-            else:
-                print("TEST FALLITO !!")
-                errori += 1
-            g_temp.insert_edge(i.endpoints()[0], i.endpoints()[1])
+                g_temp.remove_edge(i.endpoints()[0], i.endpoints()[1])
+                if connected(g_temp) is False:
+                    print("Test verificato.")
+                    successi += 1
+                else:
+                    print("TEST FALLITO !!")
+                    errori += 1
+                g_temp.insert_edge(i.endpoints()[0], i.endpoints()[1])
 
-print("\nLa funzione ha trovato con successo ", successi,"bridge, sbagliando ", errori," volte. \nGrafi testati:", connessi)
+    print("\nLa funzione ha trovato con successo ", successi, "bridge, sbagliando ", errori, " volte. \nGrafi testati:",
+          connessi)
