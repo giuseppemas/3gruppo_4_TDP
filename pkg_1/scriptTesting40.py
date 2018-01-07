@@ -1,11 +1,10 @@
-from pkg_1.MyGraph import MyGraph
 from pkg_1.MyGraph import randomGraph
 from pkg_1.MyGraph import connected
 import time
 
 N = 40
-n = 50
-m = 55
+n = 20
+m = 60
 connessi = 0
 while connessi < N:
     g1 = randomGraph(n, m)
@@ -14,7 +13,7 @@ while connessi < N:
         connessi += 1
         print("GENERAZIONE GRAFO RANDOM: ", connessi + 1, "\n")
         print("Numero dei vertici: ", n)
-        print("Archi", m, ":")
+        print("Archi: ", m)
         for e in g1.edges():
             print(e, end=", ")
         print("\n")
