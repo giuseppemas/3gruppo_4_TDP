@@ -44,7 +44,7 @@ class MyGraph (Graph):
 
     '''Funzioni di Ricerca Esaustiva per il calcolo del min vertex cover'''
 
-    def min_vertex_cover2(self):
+    def min_vertex_cover(self):
         E = set()
         vertexCover = {}
         k = self.vertex_count()
@@ -57,20 +57,22 @@ class MyGraph (Graph):
             return vertexCover
         uv = E.pop()
         u, v = uv.endpoints()
-        vertexCover1 = vertexCover.copy()
-        vertexCover1[u] = {}
-        E1 = E.copy()
-        for e in E:
-            if e._origin == u or e._destination == u:
-                E1.remove(e)
-        first = self.recursive_vertex_cover(E1, vertexCover1, k - 1)
-        vertexCover2 = vertexCover.copy()
-        vertexCover2[v] = {}
-        E2 = E.copy()
-        for e in E:
-            if e._origin == v or e._destination == v:
-                E2.remove(e)
-        second = self.recursive_vertex_cover(E2, vertexCover2, k - 1)
+        if self.degree(u) >= 1:
+            vertexCover1 = vertexCover.copy()
+            vertexCover1[u] = {}
+            E1 = E.copy()
+            for e in E:
+                if e._origin == u or e._destination == u:
+                    E1.remove(e)
+            first = self.recursive_vertex_cover(E1, vertexCover1, k - 1)
+        if self.degree(v) >= 1:
+            vertexCover2 = vertexCover.copy()
+            vertexCover2[v] = {}
+            E2 = E.copy()
+            for e in E:
+                if e._origin == v or e._destination == v:
+                    E2.remove(e)
+            second = self.recursive_vertex_cover(E2, vertexCover2, k - 1)
         if len(first) > len(second):
             return second
         else:
