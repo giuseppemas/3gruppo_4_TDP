@@ -53,11 +53,11 @@ class CityGraph(Graph):
             randvertex = vertexlist[rand.randint(0,len(vertexlist)-1)]
             pos[randvertex] = i
             vertexlist.remove(randvertex)
+
         print("Numero volanti disponibili", n_car)
-        """
         for i in pos:
-            print(i, pos[i])
-        """
+            print("Posizione volante:",i,"Codice Volante:",pos[i])
+
         typeEmergency = rand.randint(1,n_car)
 
         print("\nRichiesta soccorso dall'incrocio: ", pointEmergency)
@@ -115,6 +115,13 @@ city2.calling911(pointEmergency)
 print("\n###### City 3 - 8 Incroci - 13 Strade ######")
 city2 = CityGraph(True)
 city2.readFile("city3.txt", 8)
+lista = list(city2.vertices())
+pointEmergency = lista[rand.randint(0, len(lista) - 1)]
+city2.calling911(pointEmergency)
+
+print("\n###### City 4 - 12 Incroci - 21 Strade ######")
+city2 = CityGraph(True)
+city2.readFile("city4.txt", 12)
 lista = list(city2.vertices())
 pointEmergency = lista[rand.randint(0, len(lista) - 1)]
 city2.calling911(pointEmergency)
