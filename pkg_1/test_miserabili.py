@@ -42,7 +42,7 @@ for elem in listGVC:
     print(elem, end=", ")
 print("\nMin vertex cover: ")
 inizio_MVC = time.clock()
-listMVC = graph4.min_vertex_cover()
+listMVC = graph4.greedy_min_vertex_cover()
 fine_MVC = time.clock()
 t_MVC = fine_MVC - inizio_MVC
 for elem in listMVC:

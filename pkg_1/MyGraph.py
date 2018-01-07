@@ -72,3 +72,51 @@ class MyGraph (Graph):
         else:
             first[u] = {}
             return first
+
+
+    '''Funzione greedy migliorata per il vertex cover, ma non esatta sempre'''
+    def greedy_min_vertex_cover(self):
+        n = self.vertex_count()
+        previousSol = {}
+        for v in self.vertices():
+            previousSol[v] = {}
+        previousCount = n
+        vertexCover = {}
+        E = list()
+
+        for i in range(1, n):
+            lastCount = 0
+            for e in self.edges():
+                E.append(e)
+
+            while len(E) != 0:
+                if len(E) > i:
+                    e = E.pop(i)  # l'arco viene già eliminato
+                else:
+                    e = E.pop()
+                u, v = e.endpoints()
+                deg_u = self.degree(u)
+                deg_v = self.degree(v)
+                if (deg_u > 1 and deg_u > deg_v) or deg_v == 1:
+                    vertexCover[u] = {}  # u copre almeno due archi quindi lo inserisce nella soluzione
+                    lastCount = lastCount + 1
+                    for e in E.copy():
+                        if e._origin == u or e._destination == u:
+                            E.remove(e)
+                else:  # v copre almeno due archi
+                    vertexCover[v] = {}  # lo inserisce nella soluzione
+                    lastCount = lastCount + 1
+                    for e in E.copy():
+                        if e._origin == v or e._destination == v:
+                            E.remove(e)
+
+            if lastCount < previousCount:
+                previousCount = lastCount
+                del (previousSol)
+                previousSol = {}
+                for v in vertexCover.keys():
+                    previousSol[v] = {}
+            del (vertexCover)
+            vertexCover = {}
+
+        return previousSol
