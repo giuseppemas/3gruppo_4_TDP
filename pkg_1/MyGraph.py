@@ -46,34 +46,29 @@ class MyGraph (Graph):
 
     def min_vertex_cover(self):
         E = set()
-        vertexCover = {}
-        k = self.vertex_count()
         for e in self.edges():
             E.add(e)
-        return self.recursive_vertex_cover(E , vertexCover, k)
+        return self.recursive_vertex_cover(E)
 
-    def recursive_vertex_cover(self, E, vertexCover, k):
+
+    def recursive_vertex_cover(self, E):
         if len(E) == 0:
-            return vertexCover
+            return {}
         uv = E.pop()
         u, v = uv.endpoints()
-        if self.degree(u) >= 1:
-            vertexCover1 = vertexCover.copy()
-            vertexCover1[u] = {}
-            E1 = E.copy()
-            for e in E:
-                if e._origin == u or e._destination == u:
-                    E1.remove(e)
-            first = self.recursive_vertex_cover(E1, vertexCover1, k - 1)
-        if self.degree(v) >= 1:
-            vertexCover2 = vertexCover.copy()
-            vertexCover2[v] = {}
-            E2 = E.copy()
-            for e in E:
-                if e._origin == v or e._destination == v:
-                    E2.remove(e)
-            second = self.recursive_vertex_cover(E2, vertexCover2, k - 1)
+        E1 = E.copy()
+        for e in E:
+            if e._origin == u or e._destination == u:
+                E1.remove(e)
+        first = self.recursive_vertex_cover(E1)
+        E2 = E.copy()
+        for e in E:
+            if e._origin == v or e._destination == v:
+                E2.remove(e)
+        second = self.recursive_vertex_cover(E2)
         if len(first) > len(second):
+            second[v] = {}
             return second
         else:
+            first[u] = {}
             return first

@@ -18,7 +18,7 @@ lettura2 = testo2.splitlines()
 lettura2 = list(lettura2)
 lenLettura2 = len(lettura2)
 i = 2
-while i < 150:
+while i < 255:
     endpoints = lettura2[i].split(" ")               #inserisce i 2 estremi in un array di 2 elementi
     j = 0
     while vert2[j]._element != int(endpoints[0]):
