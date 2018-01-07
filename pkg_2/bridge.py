@@ -95,11 +95,6 @@ def randomGraph(n,m):
         g.insert_vertex(i + 1)
 
     vertici = list(g.vertices())
-    connessi = list()
-    nonConnessi = list()
-
-    for v in g.vertices():
-        nonConnessi.append(v)
 
     # Primo Arco
     r1 = random.randint(0,n-1)
@@ -108,10 +103,6 @@ def randomGraph(n,m):
 
         r2 = random.randint(0,n-1)
     g.insert_edge(vertici[r1], vertici[r2])
-    nonConnessi.remove(vertici[r1])
-    nonConnessi.remove(vertici[r2])
-    connessi.append(vertici[r1])
-    connessi.append(vertici[r2])
 
     k = g.edge_count()
     while k < m:
@@ -138,9 +129,9 @@ def connected(g):
 
 #---------------------------------------TESTING------------------------------------------------
 
-N = 1
-n = 70
-m = 140
+N = 100
+n = 50
+m = 70
 errori = 0
 successi = 0
 connessi = 0
