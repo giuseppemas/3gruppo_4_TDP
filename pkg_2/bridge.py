@@ -5,99 +5,97 @@ from TdP_collections.graphs.graph import Graph
 """
 Preso in input un oggetto MyGraph G, restituisce un bridge di G oppure None se il grafo è biconnesso
 """
+def DFS_bridge(g, u, discovered, ordineVisita):
 
-def DFS_bridge(g,u,discovered, back):
+  for e in g.incident_edges(u):    # for every outgoing edge from u
+    v = e.opposite(u)
 
-    for e in g.incident_edges(u):  # for every outgoing edge from u
-        v = e.opposite(u)
-        print("DFS: ",e)
-        if v in discovered:
-            if e not in back:
-                back.append(e)
-        elif v not in discovered:  # v is an unvisited vertex
-            discovered[v] = e  # e is the tree edge that discovered v
-            DFS_bridge(g, v, discovered, back)  # recursively explore from v
-
-
-
-
+    if v not in discovered:        # v is an unvisited vertex
+      newEdge = Graph.Edge(u, v, None)
+      ordineVisita.append(newEdge)
+      discovered[v] = e            # e is the tree edge that discovered v
+      DFS_bridge(g, v, discovered, ordineVisita)        # recursively explore from v
 
 def DFS_complete_bridge(g):
-  """Perform DFS for entire graph and return forest as a dictionary.
 
-  Result maps each vertex v to the edge that was used to discover it.
-  (Vertices that are roots of a DFS tree are mapped to None.)
-  """
   forest = {}
-  back = list()
+  ordineVisita = list()
   for u in g.vertices():
     if u not in forest:
       forest[u] = None             # u will be the root of a tree
-      DFS_bridge(g, u, forest, back)
-  return forest, back
-
+      DFS_bridge(g, u, forest, ordineVisita)
+  return forest, ordineVisita
 
 def bridge(g):
 
-    discovery = list()     # lista degli archi discovery
+    discovery = set()     # lista degli archi discovery
     back = list()          # lista di archi back
-    visitati  = {}         # dict chiave:vertice, value: intero che rappresenta l'ordine di visita (1,2,3..)
-    bridge = list()        # lista degli archi che sono BRIDGE
+    bridge = set()        # lista degli archi che sono BRIDGE
 
-    foresta = DFS_complete(g)
-    count = 1
-    primo = True
+    foresta, ordine = DFS_complete_bridge(g)
+
+    for v in g.vertices():
+        print("FORESTA: ",foresta[v], v)
+    for i in ordine:
+        print("ORDINE: ", i)
 
     # Salviamo in una lista tutti gli archi DISCOVERY, i quali sono tutti potenziali BRIDGE
     for v in g.vertices():
-        #print("TYPE_VERT: ", type(v))
-        #print("funzione: ", foresta[v])
-        if foresta[v] is None:
-            continue
-
-        if primo:
-            visitati[foresta[v].endpoints()[0]] = count
-            visitati[foresta[v].endpoints()[1]] = count + 1
-            primo = False
-            count += 1
-
-        visitati[foresta[v].endpoints()[1]] = count
-        count += 1
-
-        discovery.append(foresta[v])
-        bridge.append(foresta[v])
+        if foresta[v] is not None:
+            discovery.add(foresta[v])
+            bridge.add(foresta[v])
 
     # Tutti gli archi che non sono DISCOVERY sono BACK
     for e in g.edges():
         if e not in discovery:
-            if visitati[e.endpoints()[0]] < visitati[e.endpoints()[1]]:
-                # Se l'origine è stata visitata prima della destinazione inverto i vertici
-                #print("INVERSIONE:", type(e.endpoints()[0]))
-                newEdge = Graph.Edge(e.endpoints()[1], e.endpoints()[0], None)
-                back.append(newEdge)
-            else:
-                back.append(e)
+            back.append(e)
+
+    for i in back:
+        print("BACK: ", i)
+    for i in discovery:
+        print("DISCOVERY: ",i)
+    for i in bridge:
+        print("BRIDGE: ", i)
 
     for e in back:
-        #print("Eliminazione dei BACK:")
+        v1 = e.endpoints()[0]
+        v2 = e.endpoints()[1]
+        start = None
+        end = None
+        noBridge = set()
+        trovato = False
 
-        current_edge = foresta[e.endpoints()[0]]
-        last_edge = foresta[e.endpoints()[1]]
-        #print("ARCHI LIMITE: ", last_edge, current_edge)
+        for d in ordine:
+            if d.endpoints()[0] == v1:
+                start = v1
+                end = v2
+                noBridge.clear()
+            if d.endpoints()[0] == v2:
+                start = v2
+                end = v1
 
-        while current_edge is not last_edge:
-            #print("ARCHI WHILE: ", last_edge, current_edge)
-            #print("CANCELLO: ", current_edge)
-            bridge.remove(current_edge)
-            current_edge = foresta[current_edge.endpoints()[0]]
+            if start is not None and not(trovato):
+                print("Condizione: ", d, start, end)
+                if d.endpoints()[1] == end:
+                    trovato = True
+                d = g.get_edge(d.endpoints()[0], d.endpoints()[1])
+                noBridge.add(d)
+
+
+        for i in noBridge:
+            print("NOBRIDGE: ", i)
+        for i in bridge:
+            print("BRIDGE: ", i)
+        bridge = bridge.difference(noBridge)
 
     return bridge
 
-
+def randomGraph(n,m):
+    pass
 
 #---------------------------------------TESTING------------------------------------------------
 g = MyGraph()
-for i in range(4):
+for i in range(6):
     g.insert_vertex(i+1)
 
 vertici = list(g.vertices())
@@ -108,10 +106,12 @@ for i in range(len(vertici)):
 
 print("\n")
 
-g.insert_edge(vertici[0],vertici[1])
-g.insert_edge(vertici[0],vertici[2])
-g.insert_edge(vertici[1],vertici[2])
-g.insert_edge(vertici[2],vertici[3])
+g.insert_edge(vertici[5],vertici[0])
+g.insert_edge(vertici[0],vertici[3])
+g.insert_edge(vertici[3],vertici[2])
+g.insert_edge(vertici[1],vertici[3])
+g.insert_edge(vertici[3],vertici[4])
+g.insert_edge(vertici[5],vertici[4])
 
 archi = list(g.edges())
 print("Questi sono gli archi:")
