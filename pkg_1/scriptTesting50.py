@@ -59,7 +59,7 @@ print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Mi
 print("L'algoritmo Greedy impiega", t_MVC-t_GVC, "secondi in meno rispetto a quello Min.\n")
 print("\n\n")
 
-
+#---------------------------------------------------------------------------------------
 
 print("Testing50 #2: Grafo non diretto non pesato con 51 vertici e 25 archi")
 graph2 = MyGraph()
@@ -114,7 +114,7 @@ print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Mi
 print("L'algoritmo Greedy impiega", t_MVC-t_GVC, "secondi in meno rispetto a quello Min.\n")
 print("\n\n")
 
-
+#---------------------------------------------------------------------------------------
 
 print("Testing50 #3: Grafo non diretto non pesato con 51 vertici 34 archi")
 graph2 = MyGraph()
@@ -170,9 +170,7 @@ print("L'algoritmo Greedy impiega", t_MVC-t_GVC, "secondi in meno rispetto a que
 print("\n\n")
 
 
-
-from pkg_1.MyGraph import MyGraph
-import time
+#---------------------------------------------------------------------------------------
 
 print("Testing50 #4: Fiore --> Grafo non diretto non pesato con 26 vertici e 73 archi")
 G = MyGraph()
@@ -239,6 +237,7 @@ print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "v
 print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
 print("\n\n")
 
+#---------------------------------------------------------------------------------------
 
 print("Testing50 #5: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 77 archi")
 graph2 = MyGraph()
@@ -293,6 +292,7 @@ print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Mi
 print("L'algoritmo Greedy impiega", t_MVC-t_GVC, "secondi in meno rispetto a quello Min.\n")
 print("\n\n")
 
+#---------------------------------------------------------------------------------------
 
 print("Testing50 #6: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 100 archi")
 graph2 = MyGraph()
@@ -347,6 +347,7 @@ print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Mi
 print("L'algoritmo Greedy impiega", t_MVC-t_GVC, "secondi in meno rispetto a quello Min.\n")
 print("\n\n")
 
+#---------------------------------------------------------------------------------------
 
 print("Testing50 #7: Tratto dai miserabili.txt: Grafo non diretto pesato con 77 vertici e 120 archi")
 graph2 = MyGraph()
