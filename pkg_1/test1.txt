@@ -1,5 +1,5 @@
 grafo non-diretto e non-pesato 
-51 archi, 15 vertici
+50 archi, 15 vertici
 1 2
 1 3
 2 3
