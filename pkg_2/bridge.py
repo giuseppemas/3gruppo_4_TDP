@@ -14,6 +14,7 @@ class MyGraph (Graph):
         del self._outgoing[u][v]
         del self._outgoing[v][u]
 
+
 def DFS_bridge(g, u, discovered, ordineVisita):
 
   for e in g.incident_edges(u):    # for every outgoing edge from u
@@ -84,14 +85,14 @@ def bridge(g):
 
         bridge = bridge.difference(noBridge)  # O(len(m1) + len(m2))
 
-    '''
+
     for i in ordine:
         print("ORDINE: ", i)
     for i in back:
         print("BACK: ", i)
     for i in bridge:
         print("BRIDGE: ", i)
-    '''
+
 
     return bridge
 
@@ -137,13 +138,16 @@ def connected(g):
 
     return count == 1
 
+
 #---------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
+
+    print("\n TEST SU N GRAFI RANDOM-------------------")
     inizio_tot = time.clock()
     N = 100
-    n = 50
-    m = 70
+    n = 17
+    m = 25
     errori = 0
     successi = 0
     connessi = 0
@@ -187,3 +191,4 @@ if __name__ == "__main__":
     fine_tot = time.clock()
     print("Tempo di esecuzione totale: ", fine_tot-inizio_tot,"secondi")
     print("Tempo di esecuzione medio della funzione: ", tempo_tot/N, "secondi")
+
