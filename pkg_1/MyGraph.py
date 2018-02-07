@@ -64,7 +64,7 @@ class MyGraph (Graph):
             return first
 
 
-    '''Funzione greedy migliorata per il vertex cover, ma non esatta sempre'''
+    '''Funzione greedy migliorata per il vertex cover, ma non minima sempre'''
     def greedy_min_vertex_cover(self):
         n = self.vertex_count()
         previousSol = {}
@@ -74,7 +74,7 @@ class MyGraph (Graph):
         vertexCover = {}
         E = list()
 
-        for i in range(1, n):
+        for i in range(1, n+1):
             lastCount = 0
             for e in self.edges():
                 E.append(e)

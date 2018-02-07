@@ -47,8 +47,16 @@ fine_MVC = time.clock()
 t_MVC = fine_MVC - inizio_MVC
 for elem in listMVC:
     print(elem, end=", ")
+print("\nGreedy Min vertex cover: ")
+inizio_GMVC = time.clock()
+listGMVC = graph2.greedy_min_vertex_cover()
+fine_GMVC = time.clock()
+t_GMVC = fine_GMVC - inizio_GMVC
+for elem in listGMVC:
+    print(elem, end=", ")
 print("\n\nGREEDY --> Dim =", len(listGVC), ", Time =", t_GVC, "s\n")
 print("MIN --> Dim =", len(listMVC), ", Time =", t_MVC, "s\n")
+print("GREEDY MIN --> Dim =", len(listGMVC), ", Time =", t_GMVC, "s\n")
 print("La dimensione dell'algoritmo Greedy è di", len(listGVC)-len(listMVC), "vertici in più rispetto all'algoritmo Min.\n")
 print("L'algoritmo Greedy è", int(t_MVC/t_GVC), "volte piu' veloce di quello Min.\n")
 print("\n\n")
