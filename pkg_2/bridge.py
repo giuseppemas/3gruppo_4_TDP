@@ -145,9 +145,9 @@ if __name__ == "__main__":
 
     print("\n TEST SU N GRAFI RANDOM-------------------")
     inizio_tot = time.clock()
-    N = 100
-    n = 17
-    m = 25
+    N = 1
+    n = 5
+    m = 7
     errori = 0
     successi = 0
     connessi = 0
